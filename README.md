@@ -17,24 +17,36 @@ Amb [DevPod](https://devpod.sh/):
 devpod up .
 ```
 
+## Fitxers generats
+
+El repositori de l'amfitrió es munta a `/workspaces/anubis-devpod`. El directori de treball del contenidor és aquesta ruta, així que un fitxer escrit aquí apareix al disc local i el pots afegir al git.
+
+Desa les polítiques a `policies/`:
+
+```bash
+iplist2rule https://raw.githubusercontent.com/7c/torfilter/refs/heads/main/lists/txt/torfilter-1m-flat.txt policies/filter-tor.yaml
+```
+
+El mateix fitxer queda a `policies/filter-tor.yaml` fora del contenidor.
+
 ## iplist2rule
 
 Conversió bàsica des d'una URL. L'acció per defecte és `DENY`:
 
 ```bash
-iplist2rule https://raw.githubusercontent.com/7c/torfilter/refs/heads/main/lists/txt/torfilter-1m-flat.txt filter-tor.yaml
+iplist2rule https://raw.githubusercontent.com/7c/torfilter/refs/heads/main/lists/txt/torfilter-1m-flat.txt policies/filter-tor.yaml
 ```
 
 Permetre totes les IPs de la llista:
 
 ```bash
-iplist2rule --action ALLOW https://raw.githubusercontent.com/7c/torfilter/refs/heads/main/lists/txt/torfilter-1m-flat.txt filter-tor.yaml
+iplist2rule --action ALLOW https://raw.githubusercontent.com/7c/torfilter/refs/heads/main/lists/txt/torfilter-1m-flat.txt policies/filter-tor.yaml
 ```
 
 Afegir pes a les peticions que coincideixen:
 
 ```bash
-iplist2rule --action WEIGH --weight 20 https://raw.githubusercontent.com/7c/torfilter/refs/heads/main/lists/txt/torfilter-1m-flat.txt filter-tor.yaml
+iplist2rule --action WEIGH --weight 20 https://raw.githubusercontent.com/7c/torfilter/refs/heads/main/lists/txt/torfilter-1m-flat.txt policies/filter-tor.yaml
 ```
 
 | Flag | Descripció | Per defecte |
@@ -58,16 +70,16 @@ go install github.com/TecharoHQ/anubis/utils/cmd/iplist2rule@latest
 
 ## robots2policy
 
-Conversió bàsica des d'una URL. El resultat surt per la sortida estàndard i l'acció per defecte dels camins prohibits és `CHALLENGE`:
+Conversió bàsica des d'una URL. L'acció per defecte dels camins prohibits és `CHALLENGE`:
 
 ```bash
-robots2policy -input https://www.example.com/robots.txt
+robots2policy -input https://www.example.com/robots.txt -output policies/robots-policy.yaml
 ```
 
 Convertir un fitxer local a YAML:
 
 ```bash
-robots2policy -input robots.txt -output policy.yaml
+robots2policy -input robots.txt -output policies/robots-policy.yaml
 ```
 
 Convertir amb acció i format propis:
