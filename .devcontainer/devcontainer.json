@@ -1,0 +1,9 @@
+{
+  "name": "Anubis iplist2rule",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteEnv": {
+    "GOTOOLCHAIN": "local"
+  }
+}
