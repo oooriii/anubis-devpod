@@ -7,3 +7,6 @@ RUN go install github.com/TecharoHQ/anubis/utils/cmd/iplist2rule@latest
 
 # install robots2policy
 RUN go install github.com/TecharoHQ/anubis/cmd/robots2policy@latest
+
+# Bind-mounted over the host repo at runtime. Generated policies land here.
+WORKDIR /workspaces/anubis-devpod

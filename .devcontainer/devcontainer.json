@@ -3,6 +3,8 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
+  "workspaceFolder": "/workspaces/anubis-devpod",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/anubis-devpod,type=bind",
   "remoteEnv": {
     "GOTOOLCHAIN": "local"
   }
